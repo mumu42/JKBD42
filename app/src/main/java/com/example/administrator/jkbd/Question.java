@@ -8,6 +8,7 @@ public class Question{
     private int id;
     private String question;
     private String answer;
+    private String userswer;
     private String item1;
     private String item2;
     private String item3;
@@ -33,6 +34,14 @@ public class Question{
     }
     public void setAnswer(String answer){
         this.answer=answer;
+    }
+
+    public String getUserswer(){
+        return userswer;
+    }
+    public void setUserswer(String userswer)
+    {
+        this.userswer=userswer;
     }
 
     public String getItem1(){

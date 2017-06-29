@@ -1,5 +1,7 @@
 package com.example.administrator.jkbd;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/6/29.
  */
@@ -8,6 +10,7 @@ public class Other {
 
     private int error_code;
     private String reason;
+    private List<Question> result;
 
     public int getError_code(){
         return error_code;
@@ -21,5 +24,12 @@ public class Other {
     }
     public void setReason(String reason){
         this.reason=reason;
+    }
+
+    public List<Question> getResult(){
+        return result;
+    }
+    public void setResult(List<Question> result){
+        this.result=result;
     }
 }
