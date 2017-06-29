@@ -1,4 +1,4 @@
-package com.example.administrator.jkbd;
+package com.example.administrator.jkbd.bean;
 
 import java.util.List;
 
