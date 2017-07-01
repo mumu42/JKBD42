@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.example.administrator.jkbd.bean.ExamInfo;
 import com.example.administrator.jkbd.bean.Other;
+import com.example.administrator.jkbd.bean.Question;
 import com.example.administrator.jkbd.util.OkHttpUtils;
+import com.example.administrator.jkbd.util.ResultUtils;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 
 public class ExamApplication extends Application {
     ExamInfo examInfos;
-    List<Other> list;
+    List<Question> list;
     private static ExamApplication instance;
     @Override
     public void onCreate() {
@@ -36,29 +38,69 @@ public class ExamApplication extends Application {
         this.examInfos = examInfos;
     }
 
-    public List<Other> getList() {
+    public List<Question> getList() {
         return list;
     }
 
-    public void setList(List<Other> list) {
+    public void setList(List<Question> list) {
         this.list = list;
     }
 
     private void InitData() {
-        OkHttpUtils<ExamInfo> u=new OkHttpUtils<>(instance);
-        String URL="http://101.251.196.90:8080/JztkServer/examInfo";
+        OkHttpUtils<ExamInfo> u = new OkHttpUtils<>(instance);
+        String URL = "http://101.251.196.90:8080/JztkServer/examInfo";
         u.url(URL).targetClass(ExamInfo.class).execute(new OkHttpUtils.OnCompleteListener<ExamInfo>() {
             @Override
             public void onSuccess(ExamInfo result) {
-                Log.e("main","Result:"+result);
-                examInfos=result;
+                Log.e("main", "Result:" + result);
+                examInfos = result;
             }
 
             @Override
             public void onError(String error) {
-                Log.e("main","Error:"+error);
+                Log.e("main", "Error:" + error);
             }
 
         });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils<ExamInfo> u = new OkHttpUtils<>(instance);
+                String URL = "http://101.251.196.90:8080/JztkServer/examInfo";
+                u.url(URL).targetClass(ExamInfo.class).execute(new OkHttpUtils.OnCompleteListener<ExamInfo>() {
+                    @Override
+                    public void onSuccess(ExamInfo result) {
+                        Log.e("main", "Result:" + result);
+                        examInfos = result;
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Log.e("main", "Error:" + error);
+                    }
+                });
+                OkHttpUtils<String> utils1=new OkHttpUtils<>(instance);
+                String URL2="http://101.251.196.90:8080/JztkServer/getQuestions?testType=rand";
+                utils1.url(URL2).targetClass(String.class).execute(new OkHttpUtils.OnCompleteListener<String>() {
+                    @Override
+                    public void onSuccess(String jsonStr) {
+                        Other result=new Other();
+                        result= ResultUtils.getListResultFromJson(jsonStr);
+                        if(result!=null&&result.getError_code()==0){
+                            List<Question> questionslist=result.getResult();
+                            if(questionslist!=null)
+                                list=questionslist;
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Log.e("main","error:"+error);
+                    }
+                });
+            }
+        }).start();
+
+
     }
 }
