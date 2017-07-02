@@ -18,6 +18,10 @@ import java.util.List;
  */
 
 public class ExamApplication extends Application {
+
+    public static String LOAD_EXAM_INFO = "load_exam_info";
+    public static String LOAD_EXAM_QUESTION = "load_exam_question";
+    public static String LOAD_DATA_SUCCESS = "load_data_success";
     ExamInfo examInfos;
     List<Question> list;
     private static ExamApplication instance;
