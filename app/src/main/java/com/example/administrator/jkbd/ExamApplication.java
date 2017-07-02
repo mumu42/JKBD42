@@ -3,6 +3,8 @@ package com.example.administrator.jkbd;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.administrator.jkbd.Biz.ExamBiz;
+import com.example.administrator.jkbd.Biz.IExamBiz;
 import com.example.administrator.jkbd.bean.ExamInfo;
 import com.example.administrator.jkbd.bean.Other;
 import com.example.administrator.jkbd.bean.Question;
@@ -19,10 +21,12 @@ public class ExamApplication extends Application {
     ExamInfo examInfos;
     List<Question> list;
     private static ExamApplication instance;
+    IExamBiz biz;
     @Override
     public void onCreate() {
         super.onCreate();
         instance=this;
+        biz=new ExamBiz();
         InitData();
     }
 
@@ -98,6 +102,7 @@ public class ExamApplication extends Application {
                         Log.e("main","error:"+error);
                     }
                 });
+                biz.beginExam();
             }
         }).start();
 
