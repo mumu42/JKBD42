@@ -161,16 +161,16 @@ public class Exam extends AppCompatActivity {
                 loadData();
             }
         });
-        cb_a.setOnCheckedChangeListener(listener);
-        cb_d.setOnCheckedChangeListener(listener);
-        cb_c.setOnCheckedChangeListener(listener);
-        cb_d.setOnCheckedChangeListener(listener);
+//        cb_a.setOnCheckedChangeListener(listener);
+//        cb_d.setOnCheckedChangeListener(listener);
+//        cb_c.setOnCheckedChangeListener(listener);
+//        cb_d.setOnCheckedChangeListener(listener);
     }
 
     CompoundButton.OnCheckedChangeListener listener=new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            Log.e("error","error:"+121212);
+
             if (isChecked) {
                 int useranswer = 0;
                 switch (buttonView.getId()) {
