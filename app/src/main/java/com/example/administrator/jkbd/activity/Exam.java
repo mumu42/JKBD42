@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -34,7 +35,8 @@ public class Exam extends AppCompatActivity {
 
     TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id,tvload;
     ImageView image;
-    LinearLayout layoutload;
+    LinearLayout layoutload,layout_c,layout_d;
+    CheckBox cb_a,cb_b,cb_c,cb_d;
     ProgressBar load;
     IExamBiz biz;
 
@@ -111,11 +113,31 @@ public class Exam extends AppCompatActivity {
             tv_item2.setText(questions.getItem2());
             tv_item3.setText(questions.getItem3());
             tv_item4.setText(questions.getItem4());
+            if(questions.getItem3().equals("")){
+                layout_c.setVisibility(View.GONE);
+                cb_c.setVisibility(View.GONE);
+            }else {
+                cb_c.setVisibility(View.VISIBLE);
+                layout_c.setVisibility(View.VISIBLE);
+            }
+            if(questions.getItem4().equals("")){
+                cb_d.setVisibility(View.GONE);
+                layout_d.setVisibility(View.GONE);
+            }else {
+                cb_d.setVisibility(View.VISIBLE);
+                layout_d.setVisibility(View.VISIBLE);
+            }
         }
 
     }
 
     private void init() {
+        layout_c=(LinearLayout)findViewById(R.id.layout_c);
+        layout_d=(LinearLayout)findViewById(R.id.layout_d);
+        cb_a=(CheckBox)findViewById(R.id.cb_a);
+        cb_b=(CheckBox)findViewById(R.id.cb_b);
+        cb_c=(CheckBox)findViewById(R.id.cb_c);
+        cb_d=(CheckBox)findViewById(R.id.cb_d);
         tv_id=(TextView)findViewById(R.id.tv_id);
         tv_item4=(TextView)findViewById(R.id.tv_item4);
         tv_item3=(TextView)findViewById(R.id.tv_item3);
