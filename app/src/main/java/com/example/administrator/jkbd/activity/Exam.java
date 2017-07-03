@@ -11,6 +11,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,6 +40,7 @@ public class Exam extends AppCompatActivity {
     CheckBox cb_a,cb_b,cb_c,cb_d;
     ProgressBar load;
     IExamBiz biz;
+    CheckBox[] cb=new CheckBox[4];
 
     boolean isLoadExamInfo=false;
     boolean isLoadQuestions =false;
@@ -132,6 +134,10 @@ public class Exam extends AppCompatActivity {
     }
 
     private void init() {
+        cb[0]=cb_a;
+        cb[1]=cb_b;
+        cb[2]=cb_c;
+        cb[3]=cb_d;
         layout_c=(LinearLayout)findViewById(R.id.layout_c);
         layout_d=(LinearLayout)findViewById(R.id.layout_d);
         cb_a=(CheckBox)findViewById(R.id.cb_a);
@@ -155,7 +161,41 @@ public class Exam extends AppCompatActivity {
                 loadData();
             }
         });
+        cb_a.setOnCheckedChangeListener(listener);
+        cb_d.setOnCheckedChangeListener(listener);
+        cb_c.setOnCheckedChangeListener(listener);
+        cb_d.setOnCheckedChangeListener(listener);
     }
+
+    CompoundButton.OnCheckedChangeListener listener=new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            Log.e("error","error:"+121212);
+            if (isChecked) {
+                int useranswer = 0;
+                switch (buttonView.getId()) {
+                    case R.id.cb_a:
+                        useranswer = 1;
+                        break;
+                    case R.id.cb_b:
+                        useranswer = 2;
+                        break;
+                    case R.id.cb_c:
+                        useranswer = 3;
+                        break;
+                    case R.id.cb_d:
+                        useranswer = 4;
+                        break;
+                }
+                if (useranswer > 0) {
+                    for (CheckBox cbs : cb) {
+                        cbs.setChecked(false);
+                    }
+                    cb[useranswer - 1].setChecked(true);
+                }
+            }
+        }
+    };
 
     public void preExam(View view) {
         showQuestions(biz.preQuestion());
