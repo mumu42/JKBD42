@@ -134,10 +134,7 @@ public class Exam extends AppCompatActivity {
     }
 
     private void init() {
-        cb[0]=cb_a;
-        cb[1]=cb_b;
-        cb[2]=cb_c;
-        cb[3]=cb_d;
+
         layout_c=(LinearLayout)findViewById(R.id.layout_c);
         layout_d=(LinearLayout)findViewById(R.id.layout_d);
         cb_a=(CheckBox)findViewById(R.id.cb_a);
@@ -161,10 +158,14 @@ public class Exam extends AppCompatActivity {
                 loadData();
             }
         });
-//        cb_a.setOnCheckedChangeListener(listener);
-//        cb_d.setOnCheckedChangeListener(listener);
-//        cb_c.setOnCheckedChangeListener(listener);
-//        cb_d.setOnCheckedChangeListener(listener);
+        cb[0]=cb_a;
+        cb[1]=cb_b;
+        cb[2]=cb_c;
+        cb[3]=cb_d;
+        cb_a.setOnCheckedChangeListener(listener);
+        cb_d.setOnCheckedChangeListener(listener);
+        cb_c.setOnCheckedChangeListener(listener);
+        cb_d.setOnCheckedChangeListener(listener);
     }
 
     CompoundButton.OnCheckedChangeListener listener=new CompoundButton.OnCheckedChangeListener() {
