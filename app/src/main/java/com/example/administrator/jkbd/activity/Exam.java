@@ -106,7 +106,7 @@ public class Exam extends AppCompatActivity {
     private void showQuestions(List<Question> questions) {
         Question questionlist=questions.get(0);
         if(questionlist!=null){
-//           tv_id.setText(questionlist.getId());
+            tv_id.setText(Integer.toString(questionlist.getId()));
             tv_question.setText(questionlist.getQuestion());
             Picasso.with(Exam.this).load(questionlist.getUrl()).into(image);
             tv_item1.setText(questionlist.getItem1());
