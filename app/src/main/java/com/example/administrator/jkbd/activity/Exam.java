@@ -6,8 +6,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.text.Layout;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.jkbd.Biz.ExamBiz;
@@ -27,11 +32,17 @@ import java.util.List;
 
 public class Exam extends AppCompatActivity {
 
-    TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id;
+    TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id,tvload;
     ImageView image;
+    LinearLayout layoutload;
+    ProgressBar load;
     IExamBiz biz;
+
     boolean isLoadExamInfo=false;
     boolean isLoadQuestions =false;
+    boolean isLoadQuestionslayotload=false;
+    boolean isLoadExamInfolayoutload=false;
+
     LoadExamBroadcast mLoadExamBroadcast;
     LoadQuestionBroadcast mLoadQuestionBroadcast;
 
@@ -43,6 +54,7 @@ public class Exam extends AppCompatActivity {
         setListener();
         init();
         InitData();
+        biz=new ExamBiz();
         loadData();
     }
 
@@ -52,7 +64,8 @@ public class Exam extends AppCompatActivity {
     }
 
     private void loadData() {
-        biz=new ExamBiz();
+        layoutload.setVisibility(View.VISIBLE);
+        tvload.setText("玩命加载中……");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -62,23 +75,23 @@ public class Exam extends AppCompatActivity {
     }
 
     private void InitData() {
-        String e=ExamApplication.getInstance().getExamInfos().toString();
-        if(e!=null)
-        tv_exam.setText(e);
-        List<Question> questions=ExamApplication.getInstance().getList();
-        if(questions!=null){
-            showQuestions(questions);
-        }
-        if(isLoadQuestions&&isLoadExamInfo){
-            ExamInfo examInfo=ExamApplication.getInstance().getExamInfos();
-            if(examInfo!=null){
-                showData(examInfo);
+        if(isLoadQuestionslayotload&&isLoadExamInfolayoutload){
+            if(isLoadQuestions&&isLoadExamInfo){
+                layoutload.setVisibility(View.GONE);
+                ExamInfo examInfo=ExamApplication.getInstance().getExamInfos();
+                if(examInfo!=null){
+                    showData(examInfo);
+                }
+                List<Question> questionlist=ExamApplication.getInstance().getList();
+                if(questionlist!=null){
+                    showQuestions(questionlist);
+                }
             }
-            List<Question> questionlist=ExamApplication.getInstance().getList();
-            if(questionlist!=null){
-                showQuestions(questionlist);
-            }
+        }else {
+            layoutload.setVisibility(View.GONE);
+            tvload.setText("数据加载失败，请重新加载！");
         }
+
     }
 
     private void showExam(List<Question> questionlist) {
@@ -111,6 +124,15 @@ public class Exam extends AppCompatActivity {
         tv_question=(TextView)findViewById(R.id.tv_question);
         tv_exam=(TextView)findViewById(R.id.tv_examinfo);
         image=(ImageView)findViewById(R.id.images);
+        layoutload=(LinearLayout)findViewById(R.id.layout_load);
+        tvload=(TextView)findViewById(R.id.tv_load);
+        load=(ProgressBar)findViewById(R.id.loadpicture);
+        load.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                loadData();
+            }
+        });
     }
 
     class LoadExamBroadcast extends BroadcastReceiver{
@@ -122,6 +144,7 @@ public class Exam extends AppCompatActivity {
             if(issucces){
                 isLoadExamInfo=true;
             }
+            isLoadExamInfolayoutload=true;
             InitData();
         }
     }
@@ -135,6 +158,7 @@ public class Exam extends AppCompatActivity {
             if(issucces){
                 isLoadQuestions=true;
             }
+            isLoadQuestionslayotload=true;
             InitData();
         }
     }
