@@ -64,6 +64,7 @@ public class Exam extends AppCompatActivity {
     }
 
     private void loadData() {
+        layoutload.setEnabled(false);
         layoutload.setVisibility(View.VISIBLE);
         tvload.setText("玩命加载中……");
         new Thread(new Runnable() {
@@ -88,6 +89,7 @@ public class Exam extends AppCompatActivity {
                 }
             }
         }else {
+            layoutload.setEnabled(true);
             layoutload.setVisibility(View.GONE);
             tvload.setText("数据加载失败，请重新加载！");
         }
@@ -104,7 +106,7 @@ public class Exam extends AppCompatActivity {
     private void showQuestions(List<Question> questions) {
         Question questionlist=questions.get(0);
         if(questionlist!=null){
-//            tv_id.setText(questionlist.getId());
+//           tv_id.setText(questionlist.getId());
             tv_question.setText(questionlist.getQuestion());
             Picasso.with(Exam.this).load(questionlist.getUrl()).into(image);
             tv_item1.setText(questionlist.getItem1());
