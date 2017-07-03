@@ -193,6 +193,7 @@
                 android:layout_gravity="left"
                 android:drawableLeft="@mipmap/exam_pre32x32"
                 android:background="@null"
+                android:onClick="preExam"
                 android:textSize="30dp"
                 android:text="上一题"
                 android:layout_alignParentLeft="true"/>
@@ -209,6 +210,7 @@
                     android:layout_gravity="right"
                     android:drawableRight="@mipmap/exam_next32x32"
                     android:background="@null"
+                    android:onClick="nextExam"
                     android:textSize="30dp"
                     android:text="下一题"
                     android:layout_alignParentRight="true"/>

@@ -83,10 +83,7 @@ public class Exam extends AppCompatActivity {
                 if(examInfo!=null){
                     showData(examInfo);
                 }
-                List<Question> questionlist=ExamApplication.getInstance().getList();
-                if(questionlist!=null){
-                    showQuestions(questionlist);
-                }
+                showQuestions(biz.getquestions());
             }
         }else {
             layoutload.setEnabled(true);
@@ -96,23 +93,24 @@ public class Exam extends AppCompatActivity {
 
     }
 
-    private void showExam(List<Question> questionlist) {
-    }
 
     private void showData(ExamInfo examInfo) {
         tv_exam.setText(examInfo.toString());
     }
 
-    private void showQuestions(List<Question> questions) {
-        Question questionlist=questions.get(0);
-        if(questionlist!=null){
-            tv_id.setText(Integer.toString(questionlist.getId()));
-            tv_question.setText(questionlist.getQuestion());
-            Picasso.with(Exam.this).load(questionlist.getUrl()).into(image);
-            tv_item1.setText(questionlist.getItem1());
-            tv_item2.setText(questionlist.getItem2());
-            tv_item3.setText(questionlist.getItem3());
-            tv_item4.setText(questionlist.getItem4());
+    private void showQuestions(Question questions) {
+
+        if(questions!=null){
+            tv_id.setText(biz.getQuestionIndex());
+            tv_question.setText(questions.getQuestion());
+            if(questions.getUrl()!=null&&!questions.getUrl().equals(""))
+            Picasso.with(Exam.this).load(questions.getUrl()).into(image);
+            else
+                image.setVisibility(View.GONE);
+            tv_item1.setText(questions.getItem1());
+            tv_item2.setText(questions.getItem2());
+            tv_item3.setText(questions.getItem3());
+            tv_item4.setText(questions.getItem4());
         }
 
     }
@@ -135,6 +133,14 @@ public class Exam extends AppCompatActivity {
                 loadData();
             }
         });
+    }
+
+    public void preExam(View view) {
+        showQuestions(biz.preQuestion());
+    }
+
+    public void nextExam(View view) {
+        showQuestions(biz.nextQuestion());
     }
 
     class LoadExamBroadcast extends BroadcastReceiver{
