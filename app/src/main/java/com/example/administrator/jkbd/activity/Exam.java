@@ -2,9 +2,11 @@ package com.example.administrator.jkbd.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Layout;
@@ -230,6 +232,24 @@ public class Exam extends AppCompatActivity {
         for (CheckBox cbs : cb) {
             cbs.setChecked(false);
         }
+    }
+
+    public void ExamCommit(View view) {
+        saveanswer();
+        View inflate=View.inflate(this,R.layout.layout_commit,null);
+        TextView commit_id=(TextView)inflate.findViewById(R.id.commit_id);
+        commit_id.setText("你的分数是\n"+biz.commitExam()+"分");
+        AlertDialog.Builder ab=new AlertDialog.Builder(this);
+        ab.setIcon(R.mipmap.exam_commit32x32)
+                .setTitle("交卷")
+                .setView(inflate)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        ab.create().show();
     }
 
     class LoadExamBroadcast extends BroadcastReceiver{

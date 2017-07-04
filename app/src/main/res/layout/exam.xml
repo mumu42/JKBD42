@@ -229,6 +229,7 @@
        android:layout_gravity="right"
        android:drawableRight="@mipmap/exam_commit32x32"
        android:background="@null"
+       android:onClick="ExamCommit"
        android:textSize="30dp"
        android:text="交卷"/>
 
