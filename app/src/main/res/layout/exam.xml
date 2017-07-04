@@ -40,14 +40,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             tools:text="dsdsdsd"
-            android:textSize="30dp"
-            />
+            android:textSize="30dp" />
 
         <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#000"/>
-
+    <TextView
+        android:id="@+id/tv_times"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="30dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -29,6 +29,8 @@ import com.example.administrator.jkbd.R;
 import com.example.administrator.jkbd.bean.Question;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2017/6/29.
@@ -36,7 +38,7 @@ import java.util.List;
 
 public class Exam extends AppCompatActivity {
 
-    TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id,tvload;
+    TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id,tvload,tv_time;
     ImageView image;
     LinearLayout layoutload,layout_c,layout_d;
     CheckBox cb_a,cb_b,cb_c,cb_d;
@@ -90,6 +92,7 @@ public class Exam extends AppCompatActivity {
                 ExamInfo examInfo=ExamApplication.getInstance().getExamInfos();
                 if(examInfo!=null){
                     showData(examInfo);
+                    initTimer(examInfo);
                 }
                 showQuestions(biz.getquestions());
             }
@@ -99,6 +102,29 @@ public class Exam extends AppCompatActivity {
             tvload.setText("数据加载失败，请重新加载！");
         }
 
+    }
+
+    private void initTimer(ExamInfo examInfo) {
+        final long LiniTime=examInfo.getLimitTime()*1000*60;
+        final long SumTime=LiniTime+System.currentTimeMillis();
+        Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                final long min=(SumTime-System.currentTimeMillis())/1000/60;
+                final long sec=(SumTime-System.currentTimeMillis())/1000%60;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_time.setText("剩余时间："+min+"分"+sec+"秒");
+                        if(min==0&&sec==0){
+                            tv_time.setVisibility(View.GONE);
+                            ExamCommit(null);
+                        }
+                    }
+                });
+            }
+        },0,1000);
     }
 
 
@@ -142,7 +168,7 @@ public class Exam extends AppCompatActivity {
     }
 
     private void init() {
-
+        tv_time=(TextView)findViewById(R.id.tv_times);
         layout_c=(LinearLayout)findViewById(R.id.layout_c);
         layout_d=(LinearLayout)findViewById(R.id.layout_d);
         cb_a=(CheckBox)findViewById(R.id.cb_a);
