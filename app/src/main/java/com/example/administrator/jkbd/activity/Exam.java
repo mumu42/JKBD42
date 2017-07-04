@@ -40,6 +40,7 @@ public class Exam extends AppCompatActivity {
     CheckBox cb_a,cb_b,cb_c,cb_d;
     ProgressBar load;
     IExamBiz biz;
+    Question questionuser;
     CheckBox[] cb=new CheckBox[4];
 
     boolean isLoadExamInfo=false;
@@ -55,6 +56,7 @@ public class Exam extends AppCompatActivity {
         setContentView(R.layout.exam);
         mLoadExamBroadcast=new LoadExamBroadcast();
         mLoadQuestionBroadcast=new LoadQuestionBroadcast();
+        questionuser=new Question();
         setListener();
         init();
         InitData();
@@ -130,7 +132,11 @@ public class Exam extends AppCompatActivity {
                 layout_d.setVisibility(View.VISIBLE);
             }
         }
-
+        resetCheckBox();
+        if(questions.getUserswer()!=null&&!questions.getUserswer().equals(""))
+        {
+            cb[Integer.parseInt(questions.getUserswer())-1].setChecked(true);
+        }
     }
 
     private void init() {
@@ -199,11 +205,31 @@ public class Exam extends AppCompatActivity {
     };
 
     public void preExam(View view) {
+        saveanswer();
         showQuestions(biz.preQuestion());
     }
 
+
     public void nextExam(View view) {
+        saveanswer();
         showQuestions(biz.nextQuestion());
+    }
+
+    private void saveanswer() {
+        for(int i=0;i<cb.length;i++)
+        {
+            if(cb[i].isChecked())
+            {
+                biz.getquestions().setUserswer(Integer.toString(i+1));
+                return;
+            }
+        }
+    }
+
+    private void resetCheckBox() {
+        for (CheckBox cbs : cb) {
+            cbs.setChecked(false);
+        }
     }
 
     class LoadExamBroadcast extends BroadcastReceiver{
