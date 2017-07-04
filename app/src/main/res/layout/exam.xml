@@ -185,6 +185,11 @@
         android:text="D"
         android:textSize="30dp"/>
     </LinearLayout>
+    <Gallery
+        android:id="@+id/gallery"
+        android:spacing="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Gallery>
     <LinearLayout
 
         android:layout_width="match_parent"

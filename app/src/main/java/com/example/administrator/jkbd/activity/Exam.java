@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Gallery;
 
 import com.example.administrator.jkbd.Biz.ExamBiz;
 import com.example.administrator.jkbd.Biz.IExamBiz;
+import com.example.administrator.jkbd.View.QuestionAdapter;
 import com.example.administrator.jkbd.bean.ExamInfo;
 import com.squareup.picasso.Picasso;
 
@@ -43,15 +45,17 @@ public class Exam extends AppCompatActivity {
     LinearLayout layoutload,layout_c,layout_d;
     CheckBox cb_a,cb_b,cb_c,cb_d;
     ProgressBar load;
+    Gallery gallery;
+
     IExamBiz biz;
     Question questionuser;
-    CheckBox[] cb=new CheckBox[4];
+    QuestionAdapter questionAdapter;
 
+    CheckBox[] cb=new CheckBox[4];
     boolean isLoadExamInfo=false;
     boolean isLoadQuestions =false;
     boolean isLoadQuestionslayotload=false;
     boolean isLoadExamInfolayoutload=false;
-
     LoadExamBroadcast mLoadExamBroadcast;
     LoadQuestionBroadcast mLoadQuestionBroadcast;
 
@@ -94,6 +98,7 @@ public class Exam extends AppCompatActivity {
                     showData(examInfo);
                     initTimer(examInfo);
                 }
+                initGallery();
                 showQuestions(biz.getquestions());
             }
         }else {
@@ -102,6 +107,11 @@ public class Exam extends AppCompatActivity {
             tvload.setText("数据加载失败，请重新加载！");
         }
 
+    }
+
+    private void initGallery() {
+        questionAdapter=new QuestionAdapter(this);
+        gallery.setAdapter(questionAdapter);
     }
 
     private void initTimer(ExamInfo examInfo) {
@@ -168,6 +178,7 @@ public class Exam extends AppCompatActivity {
     }
 
     private void init() {
+        gallery=(Gallery)findViewById(R.id.gallery);
         tv_time=(TextView)findViewById(R.id.tv_times);
         layout_c=(LinearLayout)findViewById(R.id.layout_c);
         layout_d=(LinearLayout)findViewById(R.id.layout_d);
