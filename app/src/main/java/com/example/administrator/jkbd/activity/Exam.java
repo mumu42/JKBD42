@@ -155,10 +155,12 @@ public class Exam extends AppCompatActivity {
         if(questions!=null){
             tv_id.setText(biz.getQuestionIndex());
             tv_question.setText(questions.getQuestion());
-            if(questions.getUrl()!=null&&!questions.getUrl().equals(""))
-            Picasso.with(Exam.this).load(questions.getUrl()).into(image);
-            else
+            if(questions.getUrl()!=null&&!questions.getUrl().equals("")) {
+                Picasso.with(Exam.this).load(questions.getUrl()).into(image);
+                image.setVisibility(View.VISIBLE);
+            } else {
                 image.setVisibility(View.GONE);
+            }
             tv_item1.setText(questions.getItem1());
             tv_item2.setText(questions.getItem2());
             tv_item3.setText(questions.getItem3());
