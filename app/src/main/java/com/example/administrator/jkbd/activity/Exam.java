@@ -184,6 +184,16 @@ public class Exam extends AppCompatActivity {
         if(questions.getUserswer()!=null&&!questions.getUserswer().equals(""))
         {
             cb[Integer.parseInt(questions.getUserswer())-1].setChecked(true);
+            returncheck(false);
+        }else {
+            returncheck(true);
+        }
+    }
+
+    private void returncheck(boolean check) {
+        for(CheckBox cbs:cb)
+        {
+            cbs.setEnabled(check);
         }
     }
 

@@ -46,7 +46,12 @@ public class QuestionAdapter extends BaseAdapter {
         TextView tvno=(TextView)view.findViewById(R.id.tv_no);
         ImageView ivQuestion=(ImageView)view.findViewById(R.id.iv_question);
         if(questionList.get(position).getUserswer()!=null&&!questionList.get(position).getUserswer().equals("")){
+            if(questionList.get(position).getAnswer().equals(questionList.get(position).getUserswer())){
             ivQuestion.setImageResource(R.mipmap.answer24x24);
+            }
+            else {
+                ivQuestion.setImageResource(R.mipmap.error24x24);
+            }
         }else {
             ivQuestion.setImageResource(R.mipmap.ques24x24);
         }
