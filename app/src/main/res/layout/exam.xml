@@ -241,6 +241,11 @@
        android:onClick="ExamCommit"
        android:textSize="30dp"
        android:text="交卷"/>
+    <TextView
+        android:id="@+id/tv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 
     </LinearLayout>

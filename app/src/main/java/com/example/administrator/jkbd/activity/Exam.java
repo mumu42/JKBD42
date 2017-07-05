@@ -41,7 +41,7 @@ import java.util.TimerTask;
 
 public class Exam extends AppCompatActivity {
 
-    TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id,tvload,tv_time;
+    TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id,tvload,tv_time,tv_answer;
     ImageView image;
     LinearLayout layoutload,layout_c,layout_d;
     CheckBox cb_a,cb_b,cb_c,cb_d;
@@ -53,6 +53,7 @@ public class Exam extends AppCompatActivity {
     QuestionAdapter questionAdapter;
 
     CheckBox[] cb=new CheckBox[4];
+    TextView[] tv=new TextView[4];
     boolean isLoadExamInfo=false;
     boolean isLoadQuestions =false;
     boolean isLoadQuestionslayotload=false;
@@ -185,6 +186,13 @@ public class Exam extends AppCompatActivity {
         {
             cb[Integer.parseInt(questions.getUserswer())-1].setChecked(true);
             returncheck(false);
+            if (questions.getAnswer().equals(questions.getUserswer()))
+            {
+                tv[Integer.parseInt(questions.getUserswer())-1].setTextColor(getResources().getColor(R.color.green));
+            }
+            else {
+                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.red));
+            }
         }else {
             returncheck(true);
         }
@@ -198,6 +206,7 @@ public class Exam extends AppCompatActivity {
     }
 
     private void init() {
+        tv_answer=(TextView)findViewById(R.id.tv_answer);
         gallery=(Gallery)findViewById(R.id.gallery);
         tv_time=(TextView)findViewById(R.id.tv_times);
         layout_c=(LinearLayout)findViewById(R.id.layout_c);
@@ -231,6 +240,10 @@ public class Exam extends AppCompatActivity {
         cb_d.setOnCheckedChangeListener(listener);
         cb_c.setOnCheckedChangeListener(listener);
         cb_d.setOnCheckedChangeListener(listener);
+        tv[0]=tv_item1;
+        tv[1]=tv_item2;
+        tv[2]=tv_item3;
+        tv[3]=tv_item4;
     }
 
     CompoundButton.OnCheckedChangeListener listener=new CompoundButton.OnCheckedChangeListener() {
