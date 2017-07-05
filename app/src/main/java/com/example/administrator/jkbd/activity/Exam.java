@@ -262,15 +262,19 @@ public class Exam extends AppCompatActivity {
         showQuestions(biz.nextQuestion());
     }
 
+
     private void saveanswer() {
         for(int i=0;i<cb.length;i++)
         {
             if(cb[i].isChecked())
             {
                 biz.getquestions().setUserswer(Integer.toString(i+1));
-                return;
+                questionAdapter.notifyDataSetChanged();
+                return ;
             }
         }
+        biz.getquestions().setUserswer("");
+        questionAdapter.notifyDataSetChanged();
     }
 
     private void resetCheckBox() {
