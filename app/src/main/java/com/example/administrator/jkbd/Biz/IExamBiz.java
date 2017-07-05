@@ -9,6 +9,7 @@ import com.example.administrator.jkbd.bean.Question;
 public interface IExamBiz {
     void beginExam();
     Question getquestions();
+    Question getquestions(int index);
     Question nextQuestion();
     Question preQuestion();
     String getQuestionIndex();

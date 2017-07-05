@@ -26,6 +26,15 @@ public class ExamBiz implements IExamBiz{
             return null;
     }
 
+    public Question getquestions(int index) {
+        questionList=ExamApplication.getInstance().getList();
+        QuestionIndex=index;
+        if(questionList!=null)
+            return questionList.get(index);
+        else
+            return null;
+    }
+
     public ExamBiz(){
         this.dao=new ExamDao();
     }

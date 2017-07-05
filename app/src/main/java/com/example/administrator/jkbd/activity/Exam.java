@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -112,6 +113,13 @@ public class Exam extends AppCompatActivity {
     private void initGallery() {
         questionAdapter=new QuestionAdapter(this);
         gallery.setAdapter(questionAdapter);
+        gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                saveanswer();
+                showQuestions(biz.getquestions(position));
+            }
+        });
     }
 
     private void initTimer(ExamInfo examInfo) {
