@@ -108,7 +108,6 @@ public class Exam extends AppCompatActivity {
             layoutload.setVisibility(View.GONE);
             tvload.setText("数据加载失败，请重新加载！");
         }
-
     }
 
     private void initGallery() {
@@ -145,8 +144,7 @@ public class Exam extends AppCompatActivity {
             }
         },0,1000);
     }
-
-
+    
     private void showData(ExamInfo examInfo) {
         tv_exam.setText(examInfo.toString());
     }
@@ -196,8 +194,15 @@ public class Exam extends AppCompatActivity {
                         answer="D";
                         break;
                 }
-                tv_answer.setText("答案："+answer+"\n"+"解析："+questions.getExplains().toString());
-                tv_answer.setVisibility(View.VISIBLE);
+                if(questions.getUserswer().equals(questions.getAnswer())){
+                    tv_answer.setText("答案："+answer+"\n"+"解析："+questions.getExplains().toString());
+                    tv_answer.setTextColor(getResources().getColor(R.color.green));
+                    tv_answer.setVisibility(View.VISIBLE);
+                }else {
+                    tv_answer.setText("答案："+answer+"\n"+"解析："+questions.getExplains().toString());
+                    tv_answer.setTextColor(getResources().getColor(R.color.red));
+                    tv_answer.setVisibility(View.VISIBLE);
+                }
             }else {
                 tv_answer.setVisibility(View.GONE);
             }
@@ -212,15 +217,8 @@ public class Exam extends AppCompatActivity {
                 tv[Integer.parseInt(questions.getUserswer())-1].setTextColor(getResources().getColor(R.color.green));
             }
             else {
-                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.black));
-            }
-            if (!questions.getAnswer().equals(questions.getUserswer()))
-            {
                 tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.red));
-            }else {
-                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.black));
             }
-
         }else {
             returncheck(true);
             resetColor();

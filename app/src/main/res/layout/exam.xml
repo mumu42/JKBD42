@@ -25,15 +25,11 @@
             android:text="玩命加载中……"
             android:textSize="18dp"/>
     </LinearLayout>
-
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@mipmap/exam_title"/>
-
-
         <TextView
             android:id="@+id/tv_examinfo"
             android:layout_width="match_parent"
@@ -42,7 +38,6 @@
             tools:text="dsdsdsd"
             android:textSize="30dp"
             android:textColor="#000"/>
-
         <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -236,13 +231,11 @@
                 android:text="上一题"
                 android:layout_alignParentLeft="true"/>
         </LinearLayout>
-
-
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right">
-                <Button
+            <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -253,8 +246,7 @@
                     android:textColor="#000"
                     android:text="下一题"
                     android:layout_alignParentRight="true"/>
-            </LinearLayout>
-
+        </LinearLayout>
     </LinearLayout>
    <Button
        android:layout_width="wrap_content"
@@ -266,6 +258,5 @@
        android:textSize="30dp"
        android:textColor="#000"
        android:text="交卷"/>
-
-    </LinearLayout>
+</LinearLayout>
 
