@@ -180,7 +180,27 @@ public class Exam extends AppCompatActivity {
                 cb_d.setVisibility(View.VISIBLE);
                 layout_d.setVisibility(View.VISIBLE);
             }
-            tv_answer.setText("答案："+questions.getAnswer().toString()+"\n"+"解析："+questions.getExplains().toString());
+            if(questions.getUserswer()!=null&&!questions.getUserswer().equals("")){
+                String answer=null;
+                switch (questions.getAnswer().toString()){
+                    case "1":
+                        answer="A";
+                        break;
+                    case "2":
+                        answer="B";
+                        break;
+                    case "3":
+                        answer="C";
+                        break;
+                    case "4":
+                        answer="D";
+                        break;
+                }
+                tv_answer.setText("答案："+answer+"\n"+"解析："+questions.getExplains().toString());
+                tv_answer.setVisibility(View.VISIBLE);
+            }else {
+                tv_answer.setVisibility(View.GONE);
+            }
         }
         resetCheckBox();
         if(questions.getUserswer()!=null&&!questions.getUserswer().equals(""))
