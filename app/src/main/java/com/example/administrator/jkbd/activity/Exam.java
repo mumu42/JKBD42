@@ -41,10 +41,10 @@ import java.util.TimerTask;
 
 public class Exam extends AppCompatActivity {
 
-    TextView tv_exam,tv_question,tv_item1,tv_item2,tv_item3,tv_item4,tv_id,tvload,tv_time,tv_answer;
+    TextView tv_exam, tv_question, tv_item1, tv_item2, tv_item3, tv_item4, tv_id, tvload, tv_time, tv_answer;
     ImageView image;
-    LinearLayout layoutload,layout_c,layout_d;
-    CheckBox cb_a,cb_b,cb_c,cb_d;
+    LinearLayout layoutload, layout_c, layout_d;
+    CheckBox cb_a, cb_b, cb_c, cb_d;
     ProgressBar load;
     Gallery gallery;
 
@@ -52,31 +52,33 @@ public class Exam extends AppCompatActivity {
     Question questionuser;
     QuestionAdapter questionAdapter;
 
-    CheckBox[] cb=new CheckBox[4];
-    TextView[] tv=new TextView[4];
-    boolean isLoadExamInfo=false;
-    boolean isLoadQuestions =false;
-    boolean isLoadQuestionslayotload=false;
-    boolean isLoadExamInfolayoutload=false;
+    CheckBox[] cb = new CheckBox[4];
+    TextView[] tv = new TextView[4];
+    boolean isLoadExamInfo = false;
+    boolean isLoadQuestions = false;
+    boolean isLoadQuestionslayotload = false;
+    boolean isLoadExamInfolayoutload = false;
     LoadExamBroadcast mLoadExamBroadcast;
     LoadQuestionBroadcast mLoadQuestionBroadcast;
+
+    private int number = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exam);
-        mLoadExamBroadcast=new LoadExamBroadcast();
-        mLoadQuestionBroadcast=new LoadQuestionBroadcast();
-        questionuser=new Question();
+        mLoadExamBroadcast = new LoadExamBroadcast();
+        mLoadQuestionBroadcast = new LoadQuestionBroadcast();
+        questionuser = new Question();
         setListener();
         init();
         InitData();
-        biz=new ExamBiz();
+        biz = new ExamBiz();
         loadData();
     }
 
     private void setListener() {
-        registerReceiver(mLoadExamBroadcast,new IntentFilter(ExamApplication.LOAD_EXAM_INFO));
-        registerReceiver(mLoadQuestionBroadcast,new IntentFilter(ExamApplication.LOAD_EXAM_QUESTION));
+        registerReceiver(mLoadExamBroadcast, new IntentFilter(ExamApplication.LOAD_EXAM_INFO));
+        registerReceiver(mLoadQuestionBroadcast, new IntentFilter(ExamApplication.LOAD_EXAM_QUESTION));
     }
 
     private void loadData() {
@@ -92,18 +94,18 @@ public class Exam extends AppCompatActivity {
     }
 
     private void InitData() {
-        if(isLoadQuestionslayotload&&isLoadExamInfolayoutload){
-            if(isLoadQuestions&&isLoadExamInfo){
+        if (isLoadQuestionslayotload && isLoadExamInfolayoutload) {
+            if (isLoadQuestions && isLoadExamInfo) {
                 layoutload.setVisibility(View.GONE);
-                ExamInfo examInfo=ExamApplication.getInstance().getExamInfos();
-                if(examInfo!=null){
+                ExamInfo examInfo = ExamApplication.getInstance().getExamInfos();
+                if (examInfo != null) {
                     showData(examInfo);
                     initTimer(examInfo);
                 }
                 initGallery();
                 showQuestions(biz.getquestions());
             }
-        }else {
+        } else {
             layoutload.setEnabled(true);
             layoutload.setVisibility(View.GONE);
             tvload.setText("数据加载失败，请重新加载！");
@@ -111,7 +113,7 @@ public class Exam extends AppCompatActivity {
     }
 
     private void initGallery() {
-        questionAdapter=new QuestionAdapter(this);
+        questionAdapter = new QuestionAdapter(this);
         gallery.setAdapter(questionAdapter);
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -123,26 +125,26 @@ public class Exam extends AppCompatActivity {
     }
 
     private void initTimer(ExamInfo examInfo) {
-        final long LiniTime=examInfo.getLimitTime()*1000*60;
-        final long SumTime=LiniTime+System.currentTimeMillis();
-        Timer timer=new Timer();
+        final long LiniTime = examInfo.getLimitTime() * 1000 * 60;
+        final long SumTime = LiniTime + System.currentTimeMillis();
+        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                final long min=(SumTime-System.currentTimeMillis())/1000/60;
-                final long sec=(SumTime-System.currentTimeMillis())/1000%60;
+                final long min = (SumTime - System.currentTimeMillis()) / 1000 / 60;
+                final long sec = (SumTime - System.currentTimeMillis()) / 1000 % 60;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tv_time.setText("剩余时间："+min+"分"+sec+"秒");
-                        if(min==0&&sec==0){
+                        tv_time.setText("剩余时间：" + min + "分" + sec + "秒");
+                        if (min == 0 && sec == 0) {
                             tv_time.setVisibility(View.GONE);
                             ExamCommit(null);
                         }
                     }
                 });
             }
-        },0,1000);
+        }, 0, 1000);
     }
 
     private void showData(ExamInfo examInfo) {
@@ -150,11 +152,11 @@ public class Exam extends AppCompatActivity {
     }
 
     private void showQuestions(Question questions) {
-
-        if(questions!=null){
+        //Log.e("main","error:"+number);
+        if (questions != null) {
             tv_id.setText(biz.getQuestionIndex());
             tv_question.setText(questions.getQuestion());
-            if(questions.getUrl()!=null&&!questions.getUrl().equals("")) {
+            if (questions.getUrl() != null && !questions.getUrl().equals("")) {
                 Picasso.with(Exam.this).load(questions.getUrl()).into(image);
                 image.setVisibility(View.VISIBLE);
             } else {
@@ -164,58 +166,61 @@ public class Exam extends AppCompatActivity {
             tv_item2.setText(questions.getItem2());
             tv_item3.setText(questions.getItem3());
             tv_item4.setText(questions.getItem4());
-            if(questions.getItem3().equals("")){
+            if (questions.getItem3().equals("")) {
                 layout_c.setVisibility(View.GONE);
                 cb_c.setVisibility(View.GONE);
-            }else {
+            } else {
                 cb_c.setVisibility(View.VISIBLE);
                 layout_c.setVisibility(View.VISIBLE);
             }
-            if(questions.getItem4().equals("")){
+            if (questions.getItem4().equals("")) {
                 cb_d.setVisibility(View.GONE);
                 layout_d.setVisibility(View.GONE);
-            }else {
+            } else {
                 cb_d.setVisibility(View.VISIBLE);
                 layout_d.setVisibility(View.VISIBLE);
             }
-            if(questions.getUserswer()!=null&&!questions.getUserswer().equals("")){
-                String answer=null;
-                switch (questions.getAnswer().toString()){
+            if (questions.getUserswer() != null && !questions.getUserswer().equals("")) {
+                String answer = null;
+                switch (questions.getAnswer().toString()) {
                     case "1":
-                        answer="A";
+                        answer = "A";
                         break;
                     case "2":
-                        answer="B";
+                        answer = "B";
                         break;
                     case "3":
-                        answer="C";
+                        answer = "C";
                         break;
                     case "4":
-                        answer="D";
+                        answer = "D";
                         break;
                 }
-                if(questions.getUserswer().equals(questions.getAnswer())){
-                    tv_answer.setText("答案："+answer+"\n"+"解析："+questions.getExplains().toString());
+                if (questions.getUserswer().equals(questions.getAnswer())) {
+                    tv_answer.setText("答案：" + answer + "\n" + "解析：" + questions.getExplains().toString());
                     tv_answer.setTextColor(getResources().getColor(R.color.green));
                     tv_answer.setVisibility(View.VISIBLE);
-                }else {
-                    tv_answer.setText("答案："+answer+"\n"+"解析："+questions.getExplains().toString());
+                } else {
+                    tv_answer.setText("答案：" + answer + "\n" + "解析：" + questions.getExplains().toString());
                     tv_answer.setTextColor(getResources().getColor(R.color.red));
                     tv_answer.setVisibility(View.VISIBLE);
                 }
-            }else {
+            } else {
                 tv_answer.setVisibility(View.GONE);
             }
         }
         resetCheckBox();
-        if(questions.getUserswer()!=null&&!questions.getUserswer().equals(""))
-        {
-            cb[Integer.parseInt(questions.getUserswer())-1].setChecked(true);
+        if (questions.getUserswer() != null && !questions.getUserswer().equals("")) {
+            cb[Integer.parseInt(questions.getUserswer()) - 1].setChecked(true);
             returncheck(false);
-            setclor(questions.getUserswer(),questions.getAnswer());
-        }else {
+            setclor(questions.getUserswer(), questions.getAnswer());
+        } else {
             returncheck(true);
             resetColor();
+        }
+
+        if (number >0) {
+            returncheck(false);
         }
     }
 
@@ -282,20 +287,19 @@ public class Exam extends AppCompatActivity {
         cb[1]=cb_b;
         cb[2]=cb_c;
         cb[3]=cb_d;
-        cb_a.setOnCheckedChangeListener(listener);
-        cb_d.setOnCheckedChangeListener(listener);
-        cb_c.setOnCheckedChangeListener(listener);
-        cb_d.setOnCheckedChangeListener(listener);
         tv[0]=tv_item1;
         tv[1]=tv_item2;
         tv[2]=tv_item3;
         tv[3]=tv_item4;
+        cb_a.setOnCheckedChangeListener(listener);
+        cb_d.setOnCheckedChangeListener(listener);
+        cb_c.setOnCheckedChangeListener(listener);
+        cb_d.setOnCheckedChangeListener(listener);
     }
 
     CompoundButton.OnCheckedChangeListener listener=new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
             if (isChecked) {
                 int useranswer = 0;
                 switch (buttonView.getId()) {
@@ -356,20 +360,42 @@ public class Exam extends AppCompatActivity {
 
     public void ExamCommit(View view) {
         saveanswer();
-        View inflate=View.inflate(this,R.layout.layout_commit,null);
-        TextView commit_id=(TextView)inflate.findViewById(R.id.commit_id);
-        commit_id.setText("你的分数是\n"+biz.commitExam()+"分");
-        AlertDialog.Builder ab=new AlertDialog.Builder(this);
-        ab.setIcon(R.mipmap.exam_commit32x32)
-                .setTitle("交卷")
-                .setView(inflate)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-        ab.create().show();
+        returncheck(false);
+        number++;
+        if(number>1)
+        {
+            AlertDialog.Builder bd=new AlertDialog.Builder(Exam.this);
+            bd.setMessage("您已经交卷，是否留在该页面继续浏览题目？");
+            bd.setTitle("提示");
+            bd.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+            bd.setNegativeButton("否", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            bd.create().show();
+        }else {
+            View inflate=View.inflate(this,R.layout.layout_commit,null);
+            TextView commit_id=(TextView)inflate.findViewById(R.id.commit_id);
+            commit_id.setText("你的分数是\n"+biz.commitExam()+"分");
+            AlertDialog.Builder ab=new AlertDialog.Builder(this);
+            ab.setIcon(R.mipmap.exam_commit32x32)
+                    .setTitle("交卷")
+                    .setView(inflate)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+            ab.create().show();
+        }
     }
 
     class LoadExamBroadcast extends BroadcastReceiver{
