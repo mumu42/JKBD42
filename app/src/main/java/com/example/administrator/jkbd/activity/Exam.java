@@ -144,7 +144,7 @@ public class Exam extends AppCompatActivity {
             }
         },0,1000);
     }
-    
+
     private void showData(ExamInfo examInfo) {
         tv_exam.setText(examInfo.toString());
     }
@@ -212,18 +212,31 @@ public class Exam extends AppCompatActivity {
         {
             cb[Integer.parseInt(questions.getUserswer())-1].setChecked(true);
             returncheck(false);
-            if (questions.getAnswer().equals(questions.getUserswer()))
-            {
-                tv[Integer.parseInt(questions.getUserswer())-1].setTextColor(getResources().getColor(R.color.green));
-            }
-            else {
-                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.red));
-            }
+            setclor(questions.getUserswer(),questions.getAnswer());
         }else {
             returncheck(true);
             resetColor();
         }
     }
+
+    private void setclor(String userswer, String answer) {
+        int ra = Integer.parseInt(answer)-1;
+               for (int i = 0; i < tv.length; i++) {
+                        if (i==ra&&userswer.equals(answer)){
+                                tv[i].setTextColor(getResources().getColor(R.color.green));
+                            }else{
+                                if (!userswer.equals(answer)) {
+                                        int ua = Integer.parseInt(userswer) - 1;
+                                        if (i == ua) {
+                                                tv[i].setTextColor(getResources().getColor(R.color.red));
+                                            } else {
+                                                tv[i].setTextColor(getResources().getColor(R.color.black));
+                                            }
+                                }
+            }
+        }
+    }
+
 
     private void resetColor() {
         for (TextView textView : tv) {
