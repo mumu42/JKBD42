@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             tools:text="dsdsdsd"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:textColor="#000"/>
 
         <View
         android:layout_width="match_parent"
@@ -51,7 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:textColor="#000"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,13 +69,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1."
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
             <TextView
                 android:id="@+id/tv_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="asasasasas"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
         </LinearLayout>
         <ImageView
             android:id="@+id/images"
@@ -88,13 +92,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="A:"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
             <TextView
                 android:id="@+id/tv_item1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="asaasasasas"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -105,13 +111,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="B:"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
             <TextView
                 android:id="@+id/tv_item2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="asaasasasas"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -123,13 +131,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="C:"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
             <TextView
                 android:id="@+id/tv_item3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="asaasasasas"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -141,13 +151,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="D:"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
             <TextView
                 android:id="@+id/tv_item4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="asaasasasas"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:textColor="#000"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -162,34 +174,43 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="A"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:textColor="#000"/>
     <CheckBox
         android:id="@+id/cb_b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="B"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:textColor="#000"/>
     <CheckBox
         android:id="@+id/cb_c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="C"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:textColor="#000"/>
     <CheckBox
         android:id="@+id/cb_d"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:text="D"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:textColor="#000"/>
     </LinearLayout>
     <Gallery
         android:id="@+id/gallery"
         android:spacing="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></Gallery>
+    <TextView
+        android:id="@+id/tv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -210,6 +231,7 @@
                 android:background="@null"
                 android:onClick="preExam"
                 android:textSize="30dp"
+                android:textColor="#000"
                 android:text="上一题"
                 android:layout_alignParentLeft="true"/>
         </LinearLayout>
@@ -227,6 +249,7 @@
                     android:background="@null"
                     android:onClick="nextExam"
                     android:textSize="30dp"
+                    android:textColor="#000"
                     android:text="下一题"
                     android:layout_alignParentRight="true"/>
             </LinearLayout>
@@ -240,13 +263,8 @@
        android:background="@null"
        android:onClick="ExamCommit"
        android:textSize="30dp"
+       android:textColor="#000"
        android:text="交卷"/>
-    <TextView
-        android:id="@+id/tv_answer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
 
     </LinearLayout>
 

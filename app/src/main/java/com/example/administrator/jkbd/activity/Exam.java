@@ -180,6 +180,7 @@ public class Exam extends AppCompatActivity {
                 cb_d.setVisibility(View.VISIBLE);
                 layout_d.setVisibility(View.VISIBLE);
             }
+            tv_answer.setText("答案："+questions.getAnswer().toString()+"\n"+"解析："+questions.getExplains().toString());
         }
         resetCheckBox();
         if(questions.getUserswer()!=null&&!questions.getUserswer().equals(""))
@@ -191,10 +192,24 @@ public class Exam extends AppCompatActivity {
                 tv[Integer.parseInt(questions.getUserswer())-1].setTextColor(getResources().getColor(R.color.green));
             }
             else {
-                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.red));
+                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.black));
             }
+            if (!questions.getAnswer().equals(questions.getUserswer()))
+            {
+                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.red));
+            }else {
+                tv[Integer.parseInt(questions.getAnswer())-1].setTextColor(getResources().getColor(R.color.black));
+            }
+
         }else {
             returncheck(true);
+            resetColor();
+        }
+    }
+
+    private void resetColor() {
+        for (TextView textView : tv) {
+            textView.setTextColor(getResources().getColor(R.color.black));
         }
     }
 
