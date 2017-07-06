@@ -292,7 +292,7 @@ public class Exam extends AppCompatActivity {
         tv[2]=tv_item3;
         tv[3]=tv_item4;
         cb_a.setOnCheckedChangeListener(listener);
-        cb_d.setOnCheckedChangeListener(listener);
+        cb_b.setOnCheckedChangeListener(listener);
         cb_c.setOnCheckedChangeListener(listener);
         cb_d.setOnCheckedChangeListener(listener);
     }
@@ -318,6 +318,7 @@ public class Exam extends AppCompatActivity {
                 }
                 if (useranswer > 0) {
                     for (CheckBox cbs : cb) {
+                        Log.e("check","check:"+isChecked);
                         cbs.setChecked(false);
                     }
                     cb[useranswer - 1].setChecked(true);
