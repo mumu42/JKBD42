@@ -42,6 +42,13 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#000"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/tv_times"
         android:layout_width="match_parent"
@@ -258,5 +265,7 @@
        android:textSize="30dp"
        android:textColor="#000"
        android:text="交卷"/>
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 
